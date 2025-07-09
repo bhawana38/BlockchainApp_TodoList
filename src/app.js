@@ -92,8 +92,8 @@ App = {
       $newTaskTemplate.find('.content').html(taskContent);
       $newTaskTemplate.find('input')
                       .prop('name',taskId)
-                      .prop('checked',taskCompleted);
-                     // .on('click',App.toggleCompleted)
+                      .prop('checked',taskCompleted)
+                       .on('click',App.toggleCompleted)
       if (taskCompleted) {
         $('#completedTaskList').append($newTaskTemplate)
       } else {
@@ -122,8 +122,27 @@ App = {
     alert("Failed to create task. See console for details.");
     App.setLoading(false);
   }
-
   },
+  toggleCompleted: async (e) => {
+  App.setLoading(true);
+
+  try {
+    const taskId = e.target.name;
+
+    if (!taskId || isNaN(taskId)) {
+      throw new Error("Invalid task ID");
+    }
+
+    await App.todoList.toggleCompleted(taskId, { from: App.account });
+
+    window.location.reload();
+  } catch (error) {
+    console.error("Error toggling task:", error.message || error);
+    alert("Failed to toggle task. See console for details.");
+  }
+
+  App.setLoading(false);
+},
 
    setLoading: (boolean) => {
     App.loading = boolean
