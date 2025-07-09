@@ -19,27 +19,34 @@ App = {
       try {
         // Request account access
         await window.ethereum.request({ method: 'eth_requestAccounts' });
-        console.log("✅ MetaMask connected");
+        console.log("MetaMask connected");
       } catch (error) {
-        console.error("❌ User denied account access", error);
+        console.error("User denied account access", error);
       }
     }
     // Legacy dapp browsers...
     else if (window.web3) {
       App.web3Provider = window.web3.currentProvider;
       window.web3 = new Web3(window.web3.currentProvider);
-      console.log("⚠️ Legacy web3 provider detected");
+      console.log("Legacy web3 provider detected");
     }
     // Non-dapp browsers...
     else {
-      window.alert("❌ Non-Ethereum browser detected. Please install MetaMask!");
+      window.alert("Non-Ethereum browser detected. Please install MetaMask!");
     }
   },
 
   loadAccount: async () => {
-  App.account = web3.eth.accounts[0];
-  // console.log(App.account);
-  },
+  web3.eth.getAccounts(function(err, accounts) {
+    if (err || accounts.length === 0) {
+      alert("Unable to fetch accounts. Is MetaMask connected?");
+      return;
+    }
+    App.account = accounts[0];
+    console.log("Loaded account:", App.account);
+    $('#account').html(App.account); // optional, to show the address in UI
+  });
+},
 
   loadContract: async () => {
     const todoList = await $.getJSON('TodoList.json')
@@ -96,6 +103,28 @@ App = {
       $newTaskTemplate.show();
     } 
   },
+
+  createTask: async () => {
+  App.setLoading(true);
+  const content = $('#newTask').val();
+
+  if (!App.account) {
+    alert("No Ethereum account detected. Please connect MetaMask.");
+    App.setLoading(false);
+    return;
+  }
+
+  try {
+    await App.todoList.createTask(content, { from: App.account });
+    window.location.reload();
+  } catch (err) {
+    console.error("Failed to create task:", err);
+    alert("Failed to create task. See console for details.");
+    App.setLoading(false);
+  }
+
+  },
+
    setLoading: (boolean) => {
     App.loading = boolean
     const loader = $('#loader')
@@ -111,20 +140,6 @@ App = {
 
 
 };
-
-document.getElementById('connectButton').addEventListener('click', async () => {
-  if (window.ethereum) {
-    try {
-      await window.ethereum.request({ method: 'eth_requestAccounts' });
-      console.log("✅ MetaMask connected");
-    } catch (err) {
-      console.error("❌ Connection request denied", err);
-    }
-  } else {
-    alert("MetaMask not found. Please install it.");
-  }
-});
-
 
 // jQuery entry point
 $(() => {
