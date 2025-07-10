@@ -16,6 +16,7 @@ This project involves creating a todo List that will allow us to add items and c
   <li>Compile and deploy the smart contract using truffle</li>
   <li>Write tests against the smart contracts to ensure that they work properly</li>
 </ul>
+Here's a bunch of images showing the application
 ![metamask confirmation](https://github.com/user-attachments/assets/faee0abf-ad28-4f6e-838c-c313475688b9)
 ![truffle testing](https://github.com/user-attachments/assets/10683c94-3fe1-4fbb-93fe-633dbc7a8340)
 ![metamask confirmation](https://github.com/user-attachments/assets/ecfe88eb-f511-4ad9-8497-7ab995b76f42)
