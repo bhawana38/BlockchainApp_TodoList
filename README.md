@@ -20,7 +20,8 @@ Here's a bunch of images showing the application
 ![metamask confirmation](https://github.com/user-attachments/assets/faee0abf-ad28-4f6e-838c-c313475688b9)
 ![truffle testing](https://github.com/user-attachments/assets/e8c6e131-385c-4db5-aa82-4767041d828b)
 ![task added](https://github.com/user-attachments/assets/f9c016e4-7bd1-412b-93d4-720892add688)
-![ganache](https://github.com/user-attachments/assets/ccbb7114-f018-4845-b9e0-578956832aa7)
+![ganache home](https://github.com/user-attachments/assets/7a8deebc-abea-4a09-be88-f842195fb907)
+
 
 
 
