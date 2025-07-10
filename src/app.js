@@ -4,10 +4,14 @@ App = {
   loading : false,
   contracts: {},
   load: async () => {
+    console.log('loading web3');
     await App.loadWeb3();
     // You can load account, contracts, etc. here after connection
+    console.log('loading account');
     await App.loadAccount();
+    console.log('loading contract');
     await App.loadContract();
+    console.log('render');
     await App.render();
   },
 
@@ -47,14 +51,21 @@ App = {
     $('#account').html(App.account); // optional, to show the address in UI
   });
 },
+loadContract: async () => {
+  try {
+    const todoList = await $.getJSON('TodoList.json');
 
-  loadContract: async () => {
-    const todoList = await $.getJSON('TodoList.json')
     App.contracts.TodoList = TruffleContract(todoList);
     App.contracts.TodoList.setProvider(App.web3Provider);
-    //hydrate the smart contract with values from the blockchain
+
     App.todoList = await App.contracts.TodoList.deployed();
-  },
+
+    console.log("Contract loaded:", App.todoList);
+  } catch (err) {
+    console.error("Failed to load contract:", err);
+  }
+},
+
 
   render: async () => {
     //prevent double render
@@ -75,6 +86,11 @@ App = {
   },
 
   renderTasks: async () => {
+    if (!App.todoList) {
+    console.error("Contract not loaded (App.todoList is undefined)");
+    return;
+  }
+
     //load the task count from the blockchain
     const taskCount = await App.todoList.taskCount();
     const $taskTemplate = $('.taskTemplate');
