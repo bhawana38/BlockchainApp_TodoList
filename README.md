@@ -18,6 +18,7 @@ This project involves creating a todo List that will allow us to add items and c
 </ul>
 Here's a bunch of images showing the application
 ![metamask confirmation](https://github.com/user-attachments/assets/faee0abf-ad28-4f6e-838c-c313475688b9)
-![truffle testing](https://github.com/user-attachments/assets/10683c94-3fe1-4fbb-93fe-633dbc7a8340)
-![metamask confirmation](https://github.com/user-attachments/assets/ecfe88eb-f511-4ad9-8497-7ab995b76f42)
+![truffle testing](https://github.com/user-attachments/assets/e8c6e131-385c-4db5-aa82-4767041d828b)
+![task added](https://github.com/user-attachments/assets/f9c016e4-7bd1-412b-93d4-720892add688)
+
 
